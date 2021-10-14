@@ -41,7 +41,7 @@ namespace SocialApi
             });
 
         });
-                
+
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

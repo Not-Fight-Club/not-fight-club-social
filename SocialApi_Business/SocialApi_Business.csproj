@@ -8,5 +8,4 @@
     <ProjectReference Include="..\SocialApiData\SocialApi_Data.csproj" />
     <ProjectReference Include="..\SocialApi_Models\SocialApi_Models.csproj" />
   </ItemGroup>
-
 </Project>

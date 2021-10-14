@@ -25,5 +25,4 @@
     <ProjectReference Include="..\SocialApi_Business\SocialApi_Business.csproj" />
     <ProjectReference Include="..\SocialApi_Models\SocialApi_Models.csproj" />
   </ItemGroup>
-
 </Project>
