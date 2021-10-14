@@ -14,7 +14,7 @@ namespace SocialApi_Business.Repositories {
 
         private readonly SocialDBContext _context;
 
-        private FriendRepo(SocialDBContext context) {
+        public FriendRepo(SocialDBContext context) {
             _context = context;
         }
 
