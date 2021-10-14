@@ -19,4 +19,10 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\SocialApiData\SocialApi_Data.csproj" />
+    <ProjectReference Include="..\SocialApi\SocialApi.csproj" />
+    <ProjectReference Include="..\SocialApi_Business\SocialApi_Business.csproj" />
+    <ProjectReference Include="..\SocialApi_Models\SocialApi_Models.csproj" />
+  </ItemGroup>
 </Project>

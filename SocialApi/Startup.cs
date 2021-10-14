@@ -26,6 +26,22 @@ namespace SocialApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors((options) =>
+            {
+                options.AddPolicy(name: "dev", builder =>
+                { 
+                builder.WithOrigins(
+                    "http://localhost:4200",
+                    "https://localhost:5001",
+                    "https://localhost:44348",
+                    "http://localhost:5000"
+                    )
+                .AllowAnyHeader()
+                .AllowAnyMethod();
+            });
+
+        });
+
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -47,6 +63,8 @@ namespace SocialApi
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors("dev");
 
             app.UseAuthorization();
 
