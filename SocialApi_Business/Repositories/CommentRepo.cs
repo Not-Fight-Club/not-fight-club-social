@@ -11,11 +11,11 @@ using SocialApi_Models.ViewModels;
 
 namespace SocialApi_Business.Repositories
 {
-    class CommentRepo : IModelMapper<Comment, ViewComment>, ICommentRepo
+    public class CommentRepo : IModelMapper<Comment, ViewComment>, ICommentRepo
     {
         private readonly SocialDBContext _context;
 
-        private CommentRepo(SocialDBContext context) {
+        public CommentRepo(SocialDBContext context) {
             _context = context;
         }//end of constructor
 
