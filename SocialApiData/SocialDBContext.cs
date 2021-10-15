@@ -42,6 +42,10 @@ namespace SocialApi_Data
                     .HasMaxLength(1000)
                     .HasColumnName("Comment");
 
+                entity.Property(e => e.UserName)
+                    .HasMaxLength(50)
+                    .HasColumnName("UserName");
+
                 entity.Property(e => e.Date)
                     .HasColumnType("date")
                     .HasDefaultValueSql("(getdate())");

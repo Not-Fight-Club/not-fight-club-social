@@ -19,6 +19,8 @@ namespace SocialApi_Models.EfModels
         public string Comment1 { get; set; }
         public int? Parentcomment { get; set; }
 
+        public string UserName { get; set; }
+
         public virtual Comment ParentcommentNavigation { get; set; }
         public virtual ICollection<Comment> InverseParentcommentNavigation { get; set; }
     }
