@@ -10,6 +10,7 @@ namespace SocialApi_Business.Interfaces
    public interface ICommentRepo
     {
         Task<List<ViewComment>> CommentListAsync();
-        //Task<List<ViewComment>> SpecificCommentAsync();
+        Task<List<ViewComment>> SpecificCommentAsync(int fightId);
+        Task<ViewComment> PostCommentAsync(ViewComment vc);
     }
 }
