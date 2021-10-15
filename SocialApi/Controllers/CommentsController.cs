@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using SocialApi_Business.Interfaces;
+using SocialApi_Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,65 +9,30 @@ using System.Threading.Tasks;
 
 namespace SocialApi.Controllers {
     public class CommentsController : Controller {
-        // GET: CommentsController
-        public ActionResult Index() {
-            return View();
-        }
 
-        // GET: CommentsController/Details/5
-        public ActionResult Details(int id) {
-            return View();
-        }
+        private readonly ICommentRepo _commentRepo;
 
-        // GET: CommentsController/Create
-        public ActionResult Create() {
-            return View();
+        public CommentsController(ICommentRepo cr)
+        {
+            _commentRepo = cr;
         }
-
-        // POST: CommentsController/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection) {
-            try {
-                return RedirectToAction(nameof(Index));
-            }
-            catch {
-                return View();
-            }
+        // GET: api/
+        [HttpGet]
+        public async Task<ActionResult<List<ViewComment>>> GetComment()
+        {
+            return await _commentRepo.CommentListAsync();
         }
-
-        // GET: CommentsController/Edit/5
-        public ActionResult Edit(int id) {
-            return View();
+        [HttpGet("{fightid}")]
+        public async Task<List<ViewComment>> Get(int fightid)
+        {
+            return await _commentRepo.SpecificCommentAsync(fightid);
         }
-
-        // POST: CommentsController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection) {
-            try {
-                return RedirectToAction(nameof(Index));
-            }
-            catch {
-                return View();
-            }
-        }
-
-        // GET: CommentsController/Delete/5
-        public ActionResult Delete(int id) {
-            return View();
-        }
-
-        // POST: CommentsController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection) {
-            try {
-                return RedirectToAction(nameof(Index));
-            }
-            catch {
-                return View();
-            }
+        [HttpPost("post")]
+        public async Task<ActionResult> Add( ViewComment vC)
+        {
+            if (!ModelState.IsValid) return BadRequest();
+            await _commentRepo.PostCommentAsync(vC);
+            return Ok(new { Success = true });
         }
     }
 }
