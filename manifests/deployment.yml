@@ -1,0 +1,19 @@
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: social 
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: social
+  template:
+    metadata:
+      labels:
+        app: social 
+    spec:
+      containers:
+        - name: social 
+          image: p3fightclub.azurecr.io/social
+          ports:
+          - containerPort: 5011
