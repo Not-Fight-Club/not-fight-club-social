@@ -39,16 +39,6 @@ stages:
           displayName: 'dotnet test'
           inputs:
             command: 'test'
-        - task: VSTest@2
-          displayName: Publish Test Results and Code Coverage
-          inputs:
-            testSelector: 'testAssemblies'
-            testAssemblyVer2: |
-              **\*test*.dll
-              !**\*TestAdapter.dll
-              !**\obj\**
-            searchFolder: '$(System.DefaultWorkingDirectory)'
-            codeCoverageEnabled: true
 
   - stage: Build
     displayName: Build stage
