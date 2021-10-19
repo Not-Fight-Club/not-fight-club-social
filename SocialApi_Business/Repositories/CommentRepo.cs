@@ -118,7 +118,7 @@ namespace SocialApi_Business.Repositories
             Comment c = new Comment() {
                 FightId = vc.FightId,
                 UserId = vc.UserId,
-                Date = DateTime.Now,
+                Date = vc.Date,
                 Comment1 = vc.Comment1,
                 Parentcomment = vc.Parentcomment,
                 UserName = vc.UserName
