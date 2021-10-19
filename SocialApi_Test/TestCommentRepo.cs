@@ -99,6 +99,15 @@ namespace SocialApi_Test {
                 UserName = "Davian"
 
             };
+            Comment c8 = new Comment()
+            {
+                FightId = 1,
+                UserId = new Guid("f814ad2f-a55a-4272-8af1-1bb9190c1984"),
+                Date = DateTime.Today,
+                Comment1 = "First",
+                Parentcomment = null,
+                UserName = "Blake"
+            };
 
             _context.Comments.Add(c1);
             _context.Comments.Add(c2);
@@ -107,6 +116,7 @@ namespace SocialApi_Test {
             _context.Comments.Add(c5);
             _context.Comments.Add(c6);
             _context.Comments.Add(c7);
+            _context.Comments.Add(c8);
             _context.SaveChanges();
 
             cr = new CommentRepo(_context);
@@ -150,13 +160,15 @@ namespace SocialApi_Test {
         {
             ViewComment sut = new ViewComment()
             {
+                CommentId=8,
                 FightId = 1,
                 UserId = new Guid("f814ad2f-a55a-4272-8af1-1bb9190c1984"),
-                Date = DateTime.Now,
+                Date = DateTime.Today,
                 Comment1 = "First",
                 Parentcomment = null,
                 UserName = "Blake"
             };
+           
             Comment result = await cr.ViewToEF(sut);
 
             Assert.True(result is Comment);
@@ -196,7 +208,7 @@ namespace SocialApi_Test {
         {
             List<ViewComment> result = await cr.CommentListAsync();
             Assert.True(result is List<ViewComment>);
-            Assert.Equal(7, result.Count);
+            Assert.Equal(8, result.Count);
         
         }
 
@@ -209,9 +221,10 @@ namespace SocialApi_Test {
         {
             ViewComment vc1 = new ViewComment()
             {
+                CommentId = 9,
                 FightId = 22,
                 UserId = new Guid("f814ad2f-a55a-4272-8af1-1bb9190c1986"),
-                Date = DateTime.Now,
+                Date = DateTime.Today,
                 Comment1 = "Hello Fight!",
                 Parentcomment = null,
                 UserName = "Davian"
@@ -219,9 +232,12 @@ namespace SocialApi_Test {
 
             ViewComment vc2 = await cr.PostCommentAsync(vc1);
 
+            Assert.Equal(vc2.CommentId, vc1.CommentId);
+
+
             Assert.Equal(vc2.FightId, vc1.FightId);
             Assert.Equal(vc2.UserId, vc1.UserId);
-            Assert.Equal(vc2.Date, vc1.Date); ///need to be reviewed, causing a failing test 
+            Assert.Equal(vc2.Date, vc1.Date); 
             Assert.Equal(vc2.Comment1, vc1.Comment1);
             Assert.Equal(vc2.Parentcomment, vc1.Parentcomment);
             Assert.Equal(vc2.UserName, vc1.UserName);
