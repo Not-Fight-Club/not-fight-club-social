@@ -56,7 +56,7 @@ namespace SocialApi
             services.AddDbContext<SocialDBContext>(options => {
                 if (!options.IsConfigured)
                 {
-                    options.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=SocialDB;Trusted_Connection=True;");
+                    options.UseSqlServer(Configuration.GetConnectionString("Default"));
                 }
             });
             services.AddApplicationInsightsTelemetry(Configuration["APPINSIGHTS_CONNECTIONSTRING"]);
