@@ -30,22 +30,24 @@ namespace SocialApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //    services.AddCors((options) =>
-            //    {
-            //        options.AddPolicy(name: "dev", builder =>
-            //        { 
-            //        builder.WithOrigins(
-            //            "http://localhost:4200",
-            //            "https://localhost:5001",
-            //            "https://localhost:44348",
-            //            "http://localhost:5000"
-            //            )
-            //        .AllowAnyHeader()
-            //        .AllowAnyMethod();
-            //    });
+           
+            services.AddCors((options) =>
+            {
+                options.AddPolicy(name: "dev", builder =>
+                {
+                    builder.WithOrigins(
+                            "http://localhost:4200",
+                            "https://localhost:5001",
+                            "https://localhost:44348",
+                            "http://localhost:5000",
+                            "http://notfightclub.eastus.cloudapp.azure.com"
+                            )
+                        .AllowAnyHeader()
+                        .AllowAnyMethod();
+                });
 
-            //});
-            services.AddCors();
+            });
+
 
             services.AddScoped<ICommentRepo, CommentRepo>();
             services.AddControllers();
@@ -72,11 +74,13 @@ namespace SocialApi
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "SocialApi v1"));
             }
 
+            app.UseCors("dev");
+
             app.UseHttpsRedirection();
 
             app.UseRouting();
 
-            app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+            
 
             app.UseAuthorization();
 
