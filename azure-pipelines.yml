@@ -32,6 +32,11 @@ stages:
           vmImage: $(vmImageName)
         steps:
         - task: DotNetCoreCLI@2
+          displayName: 'dotnet restore'
+          inputs:
+            command: 'restore'
+            feedsToUse: 'select'
+        - task: DotNetCoreCLI@2
           displayName: 'dotnet build'
           inputs:
             command: 'build'
@@ -39,6 +44,15 @@ stages:
           displayName: 'dotnet test'
           inputs:
             command: 'test'
+            arguments: '--collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=cobertura'
+            publishTestResults: true
+            projects: SocialApi_Test
+        - task: PublishCodeCoverageResults@1
+          displayName: 'Publish code coverage report'
+          condition: succeededOrFailed()
+          inputs:
+            codeCoverageTool: 'Cobertura'
+            summaryFileLocation: '$(Agent.TempDirectory)/**/coverage.cobertura.xml'
 
   - stage: Build
     displayName: Build stage
