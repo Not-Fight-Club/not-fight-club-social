@@ -8,6 +8,9 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace SocialApi.Controllers {
+    [Route("api/[controller]")]
+    [ApiController]
+
     public class CommentsController : Controller {
 
         private readonly ICommentRepo _commentRepo;
